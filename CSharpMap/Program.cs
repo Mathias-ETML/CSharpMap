@@ -10,6 +10,7 @@ namespace CSharpMap
     {
         static void Main(string[] args)
         {
+            //Map<string, int> keyValuePairs = new Map<string, int>();
         }
     }
 }
