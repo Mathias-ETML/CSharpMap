@@ -52,6 +52,16 @@ namespace CSharpMap.SimpleMap
                 throw new ArgumentNullException(nameof(value) + " cannot be null", "value");
             }
 
+            if (FindIndex(key) != - 1)
+            {
+                throw new ArgumentException(nameof(key) + " allready exist in the map", "key");
+            }
+
+            if (FindIndex(value) != -1)
+            {
+                throw new ArgumentException(nameof(value) + " allready exist in the map", "value");
+            }
+
             this._keys.Add(key);
             this._values.Add(value);
         }
@@ -316,10 +326,32 @@ namespace CSharpMap.SimpleMap
             return i != -1 && y != -1 && i == y;
         }
 
-
+        /// <summary>
+        /// Copyto function
+        /// </summary>
+        /// <param name="array">array</param>
+        /// <param name="arrayIndex">where to start</param>
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array) + " cannot be null", "array");
+            }
+
+            if (arrayIndex < 0 || arrayIndex > array.Length)
+            {
+                throw new ArgumentException(nameof(arrayIndex) + " is too small or too big", "arrayIndex");
+            }
+
+            if (array.Length - arrayIndex < Keys.Count)
+            {
+                throw new ArgumentException(nameof(array) + " is too small", "array");
+            }
+
+            for (int i = 0; i < Keys.Count; i++, arrayIndex++)
+            {
+                array[arrayIndex] = new KeyValuePair<TKey, TValue>(_keys[i], _values[i]);
+            }
         }
 
         /// <summary>
